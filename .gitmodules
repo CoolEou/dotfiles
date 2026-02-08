@@ -1,0 +1,6 @@
+[submodule "zsh"]
+	path = zsh
+	url = https://github.com/CoolEou/zsh-config.git
+[submodule "wezterm"]
+	path = wezterm
+	url = https://github.com/CoolEou/wezterm-config.git
