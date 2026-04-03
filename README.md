@@ -1,102 +1,76 @@
 # dotfiles
-This setup is largely inspired by this setup:
-https://www.josean.com/posts/how-to-setup-wezterm-terminal
 
-## Linux install
-Clone the repo to ~/.dotfiles using:
+These are my dotfiles :)  
+My main focus for this project has been on creating a structure that is scalable and configurations that will work on any of the platforms I might find my self working on, so that I can quickly and easily expand this as my needs grow, as well as setup my development environment on a new machine, regardless of which OS is installed. 
 
-git clone https://github.com/CoolEou/dotfiles.git ~/.dotfiles
+## Installation
 
+### Bootstrap script
 
-Then cd into the .dotfiles folder and initialize the relevant submodules using e.g.:
+To easily setup the dotfiles, I've created a bootstrap script that, when run from the repo root, will link the files from the repo to the correct config locations that each application expects. It is designed to let you decide which configs should be set up, allowing for a flexible install. To choose which applications to include, simply specify one or more of the following possible arguments when running the bootstrap script:
 
-git submodule init zsh
+| Application      | Argument   |
+|:-----------------|:-----------|
+| WezTerm          | --wezterm  |
+| Zsh              | --zsh      |
+| All of the above | --all      |
 
-followed by:
+### Prerequisites
 
-git submodule update zsh
+- **The Applications**  
+    Of course to use these dotfiles, you'll need to also install the specific applications that the dotfiles are intended to configure.
 
-You can replace zsh with any submodule you want to use.
+    Some applications you'll have to install on your own, but for some applications I've created install scripts to make this process easier.
+    
+    The bootstrap script will tell you if you should install an aplication on your own and ask you if you want to run the install script if available.
+    
+- **A Nerd Font** 
+    The Powerlevel10k theme expects a Nerd Font to be used and the WezTerm config specifically expects JetBrainsMono NFM (Nerd Font Mono), which is what I use and have tested. Feel free to pick a different nerd font, just remember to then change the font in the [WezTerm config](wezterm/wezterm.lua) ;).
 
+    Nerd fonts can be found and downloaded [here](https://www.nerdfonts.com/).
 
-You should then create symbolic links to any relevant files.
-Example with zsh:
+### Linux-Install
 
-ln -s ~/.dotfiles/zsh/zshrc ~/.zshrc
+Clone the repo to ~/.dotfiles:
 
-and
+```bash
+git clone https://github.com/CoolEou/dotfiles.git ~/.dotfiles  
+```
 
-ln -s ~/.dotfiles/zsh/p10k.zsh ~/.p10k.zsh
+cd into the .dotfiles folder:
 
+```bash
+cd ~/.dotfiles  
+```
 
-### Specific for Zsh
-To use the zsh dotfiles, you need to install zsh, ohmyzsh and power10k first.
-First you do the classic:
+Run the bootstrap script:
 
-sudo apt update
+```bash
+./bootstrap.sh --all
+```
 
-sudo apt upgrade
+### Windows-Install
 
+The flexibility of the bootstrap script especially becomes handy when installing on Windows, as not everything will work on Windows it self, and not everything can be installed in WSL. 
 
-Then install zsh (https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH):
+Applications like Zsh will only work in WSL, while applications like WezTerm wont run inside WSL. 
 
-sudo apt install zsh
+So when installing on Windows you'll have to install certain applications inside WSL, for which you can follow the Linux install guide, but instead of 
 
+```bash
+./bootstrap.sh --all
+```
 
-Then ohmyzsh (https://github.com/ohmyzsh/ohmyzsh?tab=readme-ov-file#basic-installation):
+You should only include the WSL applications, e.g.:
 
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```bash
+./bootstrap.sh --zsh
+```
 
+The applications that should be installed outside of WSL have been included as submodules in this repo, so to install these, you should go to the specific submodule which will have a guide on how to install that specific application.
 
-This will also ask you if you want to set zsh as the default, which you should say yes to
-If you don't want to make it the default immediately, you can always do this later using:
-
-chsh -s $(which zsh)
-
-
-Lastly you should install powerlevel10k (https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#oh-my-zsh):
-
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-
-
-Then you should install some plugins (https://github.com/Cra7y/linuxSetup/tree/main):
-
-sudo git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-
-And lastly you can install two better tools:
-
-eza (better ls - https://github.com/eza-community/eza/blob/main/INSTALL.md#debian-and-ubuntu)
-
-sudo apt update
-
-sudo apt install -y gpg
-
-sudo mkdir -p /etc/apt/keyrings
-
-wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
-
-echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
-
-sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
-
-sudo apt update
-
-sudo apt install -y eza
-
-
-zoxide (better cd - https://github.com/ajeetdsouza/zoxide?tab=readme-ov-file#installation)
-
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-
-
-If you don't install these, you should comment out the following section of the zshrc file:
-# ---- Eza (better ls) -----
-alias ls="eza --icons=always"
-
-# ---- Zoxide (better cd) ----
-export PATH="$PATH:$HOME/.local/bin"
-eval "$(zoxide init zsh)"
-alias cd="z"
+## Credits
+I've by no means created all of this my self. Apart from some discussions with ChatGPT to figure out things like bash scripts, here are some of the places I've found inspiration:
+- The WezTerm and Zsh setup is largely inspired by [Josean Martinez's setup guide](https://www.josean.com/posts/how-to-setup-wezterm-terminal)
+- The [Powerlevel10k config](zsh/p10k.zsh) is a very slightly modified version of [Tolkonepiu's lean catppuccin mocha theme](https://github.com/tolkonepiu/catppuccin-powerlevel10k-themes)
+- The OS detection in my WezTerm config is from [Kevin Silvester's config](https://github.com/KevinSilvester/wezterm-config)
