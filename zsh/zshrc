@@ -126,9 +126,13 @@ bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 
 # ---- Eza (better ls) -----
-alias ls="eza --icons=always"
+if command -v eza >/dev/null 2>&1; then
+  alias ls="eza --icons=always"
+fi
 
 # ---- Zoxide (better cd) ----
-export PATH="$PATH:$HOME/.local/bin"
-eval "$(zoxide init zsh)"
-alias cd="z"
+if command -v zoxide >/dev/null 2>&1; then
+  export PATH="$PATH:$HOME/.local/bin"
+  eval "$(zoxide init zsh)"
+  alias cd="z"
+fi
