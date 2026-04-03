@@ -113,6 +113,11 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Save environment variables in ~/.localrc to keep them out of the public repo
+if [[ -a ~/.localrc ]]; then 
+  source ~/.localrc
+fi
+
 # ----- History Setup -----
 HISTFILE=$HOME/.zhistory
 SAVEHIST=1000

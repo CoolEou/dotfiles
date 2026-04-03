@@ -71,6 +71,7 @@ The applications that should be installed outside of WSL have been included as s
 
 ## Credits
 I've by no means created all of this my self. Apart from some discussions with ChatGPT to figure out things like bash scripts, here are some of the places I've found inspiration:
-- The WezTerm and Zsh setup is largely inspired by [Josean Martinez's setup guide](https://www.josean.com/posts/how-to-setup-wezterm-terminal)
-- The [Powerlevel10k config](zsh/p10k.zsh) is a very slightly modified version of [Tolkonepiu's lean catppuccin mocha theme](https://github.com/tolkonepiu/catppuccin-powerlevel10k-themes)
-- The OS detection in my WezTerm config is from [Kevin Silvester's config](https://github.com/KevinSilvester/wezterm-config)
+- The WezTerm and Zsh setup is largely inspired by [Josean Martinez's setup guide](https://www.josean.com/posts/how-to-setup-wezterm-terminal).
+- The [Powerlevel10k config](zsh/p10k.zsh) is a very slightly modified version of [Tolkonepiu's lean catppuccin mocha theme](https://github.com/tolkonepiu/catppuccin-powerlevel10k-themes).
+- The OS detection in my WezTerm config is from [Kevin Silvester's config](https://github.com/KevinSilvester/wezterm-config).
+- I got inspiration on how to handle and structure a public dotfiles repo from [Holman's dotfiles repo](https://github.com/holman/dotfiles).
